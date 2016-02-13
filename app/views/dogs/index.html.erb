@@ -16,7 +16,8 @@
     <% @dogs.each do |dog| %>
       <tr>
         <td> This dog's name is <%= dog.name %></td>
-        <td> Dog's age is <%= dog.age%> </td>
+        <td> Dog's age is <%= dog.age %></td>
+
         <td><%= link_to 'Show', dog %></td>
         <td><%= link_to 'Edit', edit_dog_path(dog) %></td>
         <td><%= link_to 'Destroy', dog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
