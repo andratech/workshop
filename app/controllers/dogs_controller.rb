@@ -4,7 +4,15 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.all
+    if params[:sort_by]
+      @dogs = Dog.all.sort_by(&params[:sort_by].to_sym)
+    elsif params[:babies]
+      @dogs = Dog.all.select{|d| d.age < 5 }
+    elsif params[:breed_id]
+      @dogs = Breed.find(params[:breed_id]).dogs
+    else
+      @dogs = Dog.all
+    end
   end
 
   # GET /dogs/1
@@ -69,6 +77,7 @@ class DogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dog_params
-      params.require(:dog).permit(:name, :age, :picture)
+      params.require(:dog).permit(:name, :age, :picture, :breed_id)
+
     end
 end
